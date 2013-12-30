@@ -62,6 +62,8 @@ App.Parser = (function(_){
         */
         var photoArray = photoObject.caption.split('&lt;br/&gt; &lt;br/&gt;');
         photoArray = returnSpecificArrayInfo(photoArray);
+        /* photoArray is now [name and location, camera string, caption string]
+        all of which must be properly formatted */
 
         var nameAndLocation = parseNameAndLocation(photoArray[0]);
         var formattedCaption = formatCaption(photoArray[2]);
