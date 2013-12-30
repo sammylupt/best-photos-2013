@@ -88,19 +88,24 @@ App.CameraParser = (function(_){
 
     /* Private */
 
-    function parseCameraIntoArray(camera_string) {
-        /* turn string into array and trim whitespace */
-        var camera_array = _.map(camera_string.split(','), 
+    function parseCameraIntoArray(cameraString) {
+        /* turn string into array and trim whitespace 
+        from "Canon 5D Mark III, lens 24-70mm, f3.5, 1/250, ISO 400  "
+        into array with proper whitespace 
+        */
+
+        var cameraArray = cameraString.split(',');
+        cameraArray = _.map(cameraArray, 
             function(n) { return _.trim(n) });
-        return camera_array;
+        return cameraArray;
     }
 
     function parseMakeAndModel(cameraString){
       /* given "Canon 5D Mark III"
       return { make: "Canon", model: "5D Mark III"} */
 
-      /* given a string, iterate until the character is what you're looking for
-      when it is, return everything before it and everything past it */
+      /* given a string, iterate until the character is " "
+      return everything before it and everything past it */
 
       var cameraObject = {};
 
