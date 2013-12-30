@@ -33,7 +33,7 @@ App.Parser = (function(_){
 
         var results = {};
         nameLocation = _.unescapeHTML(nameLocation);
-        /* nameLocation = <b>Thomas Peter</b>, Germany */
+        /* nameLocation = <b>THOMAS PETER</b>, Germany */
 
         var capName = nameRegex.exec(nameLocation)[1];
         results.name = formatNameProperly(capName);
