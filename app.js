@@ -55,11 +55,9 @@ App.Parser = (function(_){
 
     function parsePhoto(photoObject) {
         /* split a photo caption string into an array 
-           save only the parts we want
+        save only the parts we want. parse those parts 
+        into an object  */
 
-           parse those parts into an object
-
-        */
         var photoArray = photoObject.caption.split('&lt;br/&gt; &lt;br/&gt;');
         photoArray = returnSpecificArrayInfo(photoArray);
         /* photoArray is now [name and location, camera string, caption string]
@@ -94,8 +92,7 @@ App.CameraParser = (function(_){
     function parseCameraIntoArray(cameraString) {
         /* turn string into array and trim whitespace 
         from "Canon 5D Mark III, lens 24-70mm, f3.5, 1/250, ISO 400  "
-        into array with proper whitespace 
-        */
+        into array with proper whitespace  */
 
         var cameraArray = cameraString.split(',');
         cameraArray = _.map(cameraArray, 
@@ -139,13 +136,14 @@ App.CameraParser = (function(_){
     }
 
     function regexLens(lensInfo) {
-        //regex for lens and remove superfluous info
-        // "lens 16-35mm at 16mm " becomes "16-35mm"
+        /* regex for lens and remove superfluous info
+         turns "lens 16-35mm at 16mm " into "16-35mm" */
         var lens = lensRegex.exec(lensInfo)[1];
         return _.strLeft(lens,' at');
     }
 
     function regexISO(iso) {
+        /* If photo has ISO, turns "ISO 400 " into "400" */
         try {
             iso = iso.replace(isoReplacementRegex,'')
         } catch(e) {
