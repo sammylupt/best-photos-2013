@@ -93,12 +93,33 @@ App.CameraParser = (function(_){
         return camera_array;
     }
 
+    function parseMakeAndModel(cameraString){
+      /* given "Canon 5D Mark III"
+      return { make: "Canon", model: "5D Mark III"} */
+
+      /* given a string, iterate until the character is what you're looking for
+      when it is, return everything before it and everything past it */
+
+      var cameraObject = {};
+
+      for (var i = 0; i < cameraString.length; i++) {
+        if (cameraString[i] == " ") {
+          cameraObject.make = cameraString.slice(0,i);
+          cameraObject.model = cameraString.slice(i+1);
+          break;
+        }
+      }
+      return cameraObject;
+    }
+
     function formatCamera(cameraArray) {
         /* turn an unformatted array into a formatted object */
-
+        var makeAndModel = parseMakeAndModel(cameraArray[0]);
         var parsedLens = regexLens(cameraArray[1]);
 
         return {
+            manufacturer: makeAndModel.make,
+            model: makeAndModel.model,
             lens: parsedLens,
             prime: checkForPrimeLens(parsedLens),
             aperture: cameraArray[2],
