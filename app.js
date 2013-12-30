@@ -88,6 +88,9 @@ App.CameraParser = (function(_){
 
     /* Private */
 
+    var lensRegex = /lens (.*)/;
+    var isoReplacementRegex = /\D/g;
+
     function parseCameraIntoArray(cameraString) {
         /* turn string into array and trim whitespace 
         from "Canon 5D Mark III, lens 24-70mm, f3.5, 1/250, ISO 400  "
@@ -135,16 +138,16 @@ App.CameraParser = (function(_){
         }
     }
 
-    function regexLens(lens_info) {
+    function regexLens(lensInfo) {
         //regex for lens and remove superfluous info
         // "lens 16-35mm at 16mm " becomes "16-35mm"
-        var lens = /lens (.*)/.exec(lens_info)[1];
+        var lens = lensRegex.exec(lensInfo)[1];
         return _.strLeft(lens,' at');
     }
 
     function regexISO(iso) {
         try {
-            iso = iso.replace(/\D/g,'')
+            iso = iso.replace(isoReplacementRegex,'')
         } catch(e) {
             iso = "";
         }
