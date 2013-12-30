@@ -24,8 +24,7 @@ var results = _.map(sourcePhotoArray, function(photo) {
 
 results = JSON.stringify(results);
 fs.writeFile('results.json', results, function(error) {
-  if (error) {
-    throw error;
+  if (!error) {
+    console.log("Done!");
   }
-  console.log("Done!");
 });
